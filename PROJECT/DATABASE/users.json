@@ -1,0 +1,9 @@
+[
+    {
+        "name": "Rajmnai Admin",
+        "user_id": "admin",
+        "mobile": "9999999999",
+        "password": "Admin@123",
+        "role": "Admin"
+    }    
+]
