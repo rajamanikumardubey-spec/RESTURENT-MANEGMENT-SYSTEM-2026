@@ -1,110 +1,71 @@
 import json
 import os
-import msvcrt
+import stdiomask
+from PROJECT.LOGS.error import log_info,log_warning
 
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-FILE_PATH = os.path.join(
-    BASE_DIR,
-    "DATABASE",
-    "users.json"
-)
+FILE_NAME = os.path.join(BASE_DIR, "DATABASE", "users.json")
 
 
 def load_users():
-    with open(FILE_PATH, "r") as file:
-        data = json.load(file)
+    try:
+        with open(FILE_NAME, "r") as file:
+            return json.load(file)
 
-    if isinstance(data, list):
-        return data
-
-    print("users.json must contain a list.")
-    return []
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
 
 
-def get_password():
-    password = ""
+def Loggin():
 
-    while True:
-        char = msvcrt.getch()
+    print("\n========== LOGIN ==========")
 
-        if char == b"\r":
-            print()
-            return password
+    users = load_users()
 
-        elif char == b"\b":
-            if password:
-                password = password[:-1]
-                print("\b \b", end="", flush=True)
+    if not users:
+        log_warning("No registered users found")
+        print("No registered users found.")
+        return
 
-        else:
-            password += char.decode()
-            print("*", end="", flush=True)
+    user_id = input("Enter User ID: ").strip()
+    password = stdiomask.getpass("Enter Password:", mask="@")
 
+    for user in users:
 
-class Loggin:
+        if user["user_id"] == user_id:
 
-    def __init__(self):
-        self.users = load_users()
+            if user["password"] == password:
 
-    def validate_user_id(self):
-        while True:
-            user_id = input("Enter User ID: ").strip()
+                log_info("Login successful")
 
-            if not user_id:
-                print("User ID cannot be empty.")
+                print("\nLogin Successful")
+                print("Welcome :", user["name"])
+                print("Role    :", user["role"])
 
-            elif len(user_id) < 4:
-                print("User ID must contain at least 4 characters.")
+                if user["role"].lower() == "admin":
 
-            elif len(user_id) > 20:
-                print("User ID cannot contain more than 20 characters.")
+                    log_info("Admin dashboard opened")
 
-            else:
-                return user_id
-
-    def validate_password(self):
-        while True:
-            print("Enter Password: ", end="", flush=True)
-            password = get_password()
-
-            if not password:
-                print("Password cannot be empty.")
-
-            elif len(password) < 8:
-                print("Password must contain at least 8 characters.")
-
-            else:
-                return password
-
-    def loggin(self):
-        print("\n========== LOG IN ==========")
-
-        if not self.users:
-            print("No registered users found.")
-            print("Please register first.")
-            return None
-
-        user_id = self.validate_user_id()
-        password = self.validate_password()
-
-        for user in self.users:
-
-            if user.get("user_id", "").lower() == user_id.lower():
-
-                if user.get("password") == password:
-
-                    print("\nLogin Successful!")
-                    print("Welcome: 😊", user.get("name"))
-                    print("Role   : 👍", user.get("role"))
-
-                    return user
+                    from PROJECT.DASHBOARD.admin__dhasbod import admin_dhasbod
+                    admin_dhasbod()
 
                 else:
-                    print("Incorrect Password.🤦‍♂️")
-                    return None
 
-        print("User ID not found.")
-        return None
+                    log_warning("Invalid user role")
+                    print("Invalid user role.")
+
+                return
+
+            else:
+
+                log_warning("Incorrect password for User ID")
+                print("Incorrect Password.")
+                return
+
+    log_warning("User ID not found")
+    print("User ID not found.")
+
+# if __name__ == "__main__":
+    Loggin()

@@ -1,13 +1,18 @@
 import json
 import os
-class table:
+from PROJECT.LOGS.error import log_error, log_info,log_warning
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FILE_NAME = os.path.join(BASE_DIR, "DATABASE", "table.json")
+
+class Table:
     def __init__(self, customer_name, table_id, table_size, table_seat, table_duration):
         self.customer_name = customer_name
         self.table_id = table_id
         self.table_size = table_size
         self.table_seat = table_seat
         self.table_duration = table_duration
-class Dispay(table):
+class Display(Table):
     def display(self):
         print("\n---------- Booking Details ----------")
         print("Customer Name  :", self.customer_name)
@@ -40,12 +45,18 @@ tables = {
     }
 }
 
-FILE_NAME = "tabledata.json"
+
 def load_data():
+
     if not os.path.exists(FILE_NAME):
+
+        log_error("Table file not found: " + FILE_NAME)
+
         with open(FILE_NAME, "w") as file:
             json.dump([], file, indent=4)
+
         return []
+
     try:
 
         with open(FILE_NAME, "r") as file:
@@ -53,6 +64,7 @@ def load_data():
 
     except json.JSONDecodeError:
 
+        log_error("Invalid JSON data in table file")
         return []
 
 def save_data(data):
@@ -92,12 +104,15 @@ def booking():
 
     print("\n--------- New Customer Booking ---------")
 
-    customer_name = input("Please enter customer name: ")
+    customer_name = input("Please enter customer name: ").upper()
 
     if customer_name.strip() == "":
-        print("Customer name cannot be empty!")
+        log_warning("Customer name cannot be empty")
+        print("Customer name cannot be empty")
         return
+
     show_availability(data)
+
     print("\n1 = 2 Seater")
     print("2 = 4 Seater")
     print("3 = 6 Seater")
@@ -106,36 +121,44 @@ def booking():
 
     if choice == "1":
         table_size = "2 Seater"
+
     elif choice == "2":
         table_size = "4 Seater"
-    elif choice == "3":
-        table_size = "6 Seater"
-    else:
 
+    elif choice == "3":
+        table_size = "6 Seater"   
+
+    else:
+        log_warning("Invalid table size choice: " + choice)
         print("Invalid choice!")
         return
+    
     booked_ids = []
     for booking_data in data:
         booked_ids.append(booking_data["table_id"])
 
     available_tables = []
+
     for table_id in tables[table_size]["ids"]:
 
         if table_id not in booked_ids:
             available_tables.append(table_id)
+
     if len(available_tables) == 0:
-        print("\nSorry!")
-        print("No", table_size, "table available.")
+        log_warning("No table available:" + table_size)
+        print("No", table_size, "table available")
 
         return
     table_id = available_tables[0]
     table_seat = tables[table_size]["seat"]
+
     print("\nYour Table ID :", table_id)
     print("Table Size    :", table_size)
     print("Table Seat    :", table_seat)
 
     table_duration = input("Please enter table duration: ")
-    obj = Dispay(
+
+    obj = Display(
         customer_name,
         table_id,
         table_size,
@@ -149,9 +172,13 @@ def booking():
         "table_seat": table_seat,
         "table_duration": table_duration
     }
+    
     data.append(booking_data)
     save_data(data)
+
+    log_info("Booking Successful")
     print("\n---------- Booking Successful ----------")
+
     print("Customer Name  :", customer_name)
     print("Table ID       :", table_id)
     print("Table Size     :", table_size)
@@ -163,10 +190,14 @@ def booking():
 
 def display_all_bookings():
     data = load_data()
-    print("\n========== ALL BOOKINGS ==========")
+
+    print("\n========== ALL BOOKINGS DISPLAY ==========")
     if len(data) == 0:
-        print("No booking available.")
+
+        log_warning("No booking available")
+        print("No booking available")
         return
+    
     for i, booking_data in enumerate(data, start=1):
         print("\nBooking", i)
         print("--------------------------------")
@@ -175,6 +206,8 @@ def display_all_bookings():
         print("Table Size     :", booking_data["table_size"])
         print("Table Seat     :", booking_data["table_seat"])
         print("Table Duration :", booking_data["table_duration"])
+
+    log_info("All Booking Display")    
 
     print("=================================")
 
@@ -200,7 +233,8 @@ def main():
             print("\nThank you! vist again.")
             break
         else:
-            print("\nInvalid choice!")
+            log_warning("Invalid choice")
+            print("\nInvalid choice")
 
 
 if __name__=="__main__":

@@ -1,48 +1,58 @@
-from PROJECT.MENU.menu import menu_management
-from PROJECT.BOOKING.table__boking import main 
+from PROJECT.MENU.food_menu import menu1
+from PROJECT.BOOKING.table__boking import main
+from PROJECT.ORDERS.food_order import menu3
+from PROJECT.INVENTORY.product import menu2
+from PROJECT.BILLING.bill import menu4
+from PROJECT.WETER.t_singup import menu6
+from PROJECT.LOGS.error import view_error
+
+
+
+
 def admin_dhasbod():
-    print("=============😊😊😊😊😊😊😊===========") 
-    print("==============ADMIN DASHBOARD=============") 
-    print("=============😊😊😊😊😊😊😊===========") 
+    while True:
+        print("\n==========================================")
+        print("============== ADMIN DASHBOARD =============")
+        print("============================================")
+
+        print("1. View Menu")
+        print("2. Inventory")
+        print("3. Billing")
+        print("4. Table Booking")
+        print("5. Food Orders")
+        print("6. View Logs Error")
+        print("7. Staf Manegment")
+        print("8. Logout")
+
+        choice = input("Enter Choice: ").strip()
+
+        if choice == "1":
+            menu1()
+
+        elif choice == "2":
+            menu2()
 
 
-    
-    print("1👍.  View Menu")
-    print("2😊. Inventory")
-    print("3😎. Staff Management")
-    print("4🤔. Billing")
-    print("5👍. Booking")
-    print("6😎. Orders")
-    print("7😊. Logs")
-    print("8 🤦‍♂️. Exit")
+        elif choice == "3":
+            menu4()
+
+        elif choice == "4":
+            main()
+
+        elif choice == "5":
+            menu3()
+
+        elif choice == "6":
+            view_error()
+            
+
+        elif choice == "7":
+            menu6()    
 
 
-    choice = input("Enter Choice: ").strip()
+        elif choice == "8":
+            print("Exit")
+            break
 
-    if choice == "1":
-        menu_management()
-        
-
-    elif choice == "2":
-        print("Inventory Section in progress😊")
-
-    elif choice == "3":
-        print("Staff Management Section in progress😊")
-
-    elif choice == "4":
-        print("Billing Section in progress😊")
-
-    elif choice == "5":
-        main()
-
-    elif choice == "6":
-        print("Orders Section in progress😊") 
-
-    elif choice == "7":
-        print("Logs Section in progress😊")
-
-    elif choice =="8":
-        print("Exit 🤦‍♂️")
-
-    else:
-        print("Invalid choice. Please select 1,2,3,4,5,6,7 or 8.")
+        else:
+            print("Invalid choice.")
