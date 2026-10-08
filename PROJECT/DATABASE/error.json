@@ -948,5 +948,20 @@
         "time": "2026-10-07 19:01:55",
         "level": "INFO",
         "message": "Bill Generated Successfully"
+    },
+    {
+        "time": "2026-10-08 09:14:43",
+        "level": "INFO",
+        "message": "Login successful"
+    },
+    {
+        "time": "2026-10-08 09:14:43",
+        "level": "INFO",
+        "message": "Admin dashboard opened"
+    },
+    {
+        "time": "2026-10-08 09:16:30",
+        "level": "INFO",
+        "message": "All Booking Display"
     }
 ]

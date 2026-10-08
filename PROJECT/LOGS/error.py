@@ -5,14 +5,6 @@ from datetime import datetime
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FILE_NAME = os.path.join(BASE_DIR, "DATABASE", "error.json")
 
-def load_menu():
-    try:
-        with open(FILE_NAME, "r") as file:
-            return json.load(file)
-
-    except FileNotFoundError:
-        return []
-
 def load_error():
 
     try:
