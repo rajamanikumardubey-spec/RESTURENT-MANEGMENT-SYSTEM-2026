@@ -102,14 +102,5 @@
         "price": 120,
         "description": "Creamy chilled ice cream",
         "available": true
-    },
-    {
-        "food_id": "f010",
-        "name": "kajju katli",
-        "category": "sdsd",
-        "price": 40,
-        "description": "ddfdf",
-        "available": " ys"
     }
-
 ]

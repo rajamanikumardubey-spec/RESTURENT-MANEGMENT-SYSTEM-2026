@@ -50,7 +50,7 @@ def load_data():
 
     if not os.path.exists(FILE_NAME):
 
-        log_error("Table file not found: " + FILE_NAME)
+        log_error("Table file not found")
 
         with open(FILE_NAME, "w") as file:
             json.dump([], file, indent=4)
@@ -106,9 +106,9 @@ def booking():
 
     customer_name = input("Please enter customer name: ").upper()
 
-    if customer_name.strip() == "":
-        log_warning("Customer name cannot be empty")
-        print("Customer name cannot be empty")
+    if not customer_name.replace(" ", "").isalpha():
+        log_warning("Customer name must contain only letters")
+        print("Customer name must contain only letters")
         return
 
     show_availability(data)

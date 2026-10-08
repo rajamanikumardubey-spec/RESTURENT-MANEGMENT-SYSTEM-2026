@@ -1,6 +1,6 @@
 import json
 import os
-from PROJECT.LOGS.error import log_warning, log_info, log_error
+from PROJECT.LOGS.error import log_info, log_error
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -219,6 +219,8 @@ def view_bills():
         print(f"after_discount : {bill['after_discount']:.0f}")
         print(f"GST 5%   :       {bill['gst']:.0f}")
         print(f"Grand Total    : {bill['Grand_Total']:.0f}")
+        print(f"payment_method : {bill['payment_method']}")
+        print(f"payment_status : {bill['payment_status']}")
    
 
 def menu4():
@@ -245,7 +247,6 @@ def menu4():
             break
 
         else:
-
             print("Invalid Choice")
 
 

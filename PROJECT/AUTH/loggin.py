@@ -67,5 +67,5 @@ def Loggin():
     log_warning("User ID not found")
     print("User ID not found.")
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
     Loggin()
