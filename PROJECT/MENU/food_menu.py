@@ -8,23 +8,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FILE_NAME = os.path.join(BASE_DIR, "DATABASE", "menu.json")
 
 
-CATEGORIES = [
-    "Breakfast",
-    "Starter",
-    "Soup",
-    "Salad",
-    "Main Course",
-    "Rice & Biryani",
-    "Roti / Naan",
-    "Chinese",
-    "Fast Food",
-    "Combo",
-    "Dessert",
-    "Beverages",
-    "Tea & Coffee"
-]
-
-
 def load_menu():
     try:
         with open(FILE_NAME, "r") as file:
@@ -76,6 +59,9 @@ def add_menu():
 
     food_id = input("please enter your food id").strip()
     name = input("please enter your name").strip()
+    if not name.isalpha():
+        print("only charecter")
+        return
 
     for food in menu:
         if food["food_id"].casefold() == food_id.casefold():
@@ -90,9 +76,30 @@ def add_menu():
 
 
     category = input("Category: ")
-    price = int(input("Price: "))
+    if not category.isalpha():
+        print("only  charecter ")
+        return
+
+    try:
+
+        price = float(input("Price: "))
+        if price <=0:
+            print("0 se kam nahi")
+            return
+
+    except ValueError:
+        print("pleasse enter velid number")
+        return
+
     description = input("description")
+    if not description.isalpha():
+        print("only charecter")
+        return
+    
     available = input("available")
+    if not available.isalpha():
+        print("only charecter")
+        return
 
 
     item = {

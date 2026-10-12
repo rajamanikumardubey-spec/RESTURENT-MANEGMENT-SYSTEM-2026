@@ -44,6 +44,9 @@ def add_product():
         return
 
     name = input("Please enter your product: ").strip()
+    if not name.isalpha():
+        print("only cheracter")
+        return
 
     for material in product["materials"]:
 

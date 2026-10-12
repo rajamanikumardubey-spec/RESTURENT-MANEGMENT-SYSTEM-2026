@@ -1,1 +1,47 @@
-[]
+[
+    {
+        "time": "2026-10-12 11:39:19",
+        "level": "INFO",
+        "message": "Login successful"
+    },
+    {
+        "time": "2026-10-12 11:39:19",
+        "level": "INFO",
+        "message": "Admin dashboard opened"
+    },
+    {
+        "time": "2026-10-12 11:40:55",
+        "level": "INFO",
+        "message": "Product added successfully: 213213"
+    },
+    {
+        "time": "2026-10-12 11:41:11",
+        "level": "INFO",
+        "message": "Product deleted successfully: 213213"
+    },
+    {
+        "time": "2026-10-12 11:41:51",
+        "level": "ERROR",
+        "message": "Weter not found"
+    },
+    {
+        "time": "2026-10-12 11:42:01",
+        "level": "ERROR",
+        "message": "No orders found[]"
+    },
+    {
+        "time": "2026-10-12 11:42:05",
+        "level": "ERROR",
+        "message": "No order found"
+    },
+    {
+        "time": "2026-10-12 11:42:08",
+        "level": "WARNING",
+        "message": "Order not found"
+    },
+    {
+        "time": "2026-10-12 11:42:13",
+        "level": "WARNING",
+        "message": "Order not found"
+    }
+]
